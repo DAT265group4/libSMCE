@@ -77,3 +77,66 @@ TEST_CASE("Mixed INO/C++ sources", "[Board]") {
         std::cerr << tc.build_log().second;
     REQUIRE_FALSE(ec);
 }
+
+TEST_CASE("AttachSketch", "[Board]")
+{
+    smce::Sketch sk{SKETCHES_PATH "noop", {.fqbn = "arduino:avr:nano"}};
+
+    SECTION("Attached") {
+        smce::Board br{};
+        REQUIRE(br.attach_sketch(sk));
+        REQUIRE(br.get_sketch() == &sk);
+    }
+
+    SECTION("Not_Attached_Running") {
+        smce::Board br{};
+        REQUIRE(br.start());
+        REQUIRE(br.status() == smce::Board::Status::running);
+        REQUIRE_FALSE(br.attach_sketch(sk));
+    }
+
+    SECTION("Not_Attached_Suspended") {
+        smce::Board br{};
+        REQUIRE(br.suspend());
+        REQUIRE(br.status() == smce::Board::Status::suspended);
+        REQUIRE_FALSE(br.attach_sketch(sk));
+    }
+}
+
+
+TEST_CASE("Reset", "[Board]")
+{
+    smce::Toolchain tc{SMCE_PATH};
+    REQUIRE(!tc.check_suitable_environment());
+    smce::Sketch sk{SKETCHES_PATH "noop", {.fqbn = "arduino:avr:nano"}};
+    tc.compile(sk);
+    smce::Board br{};
+    REQUIRE(br.configure({}));
+    REQUIRE(br.attach_sketch(sk));
+
+    SECTION("Reset_Running") {
+        REQUIRE(br.start());
+        REQUIRE(br.status() == smce::Board::Status::running);
+        REQUIRE_FALSE(br.reset());
+    }
+
+    SECTION("Reset_Suspended") {
+        REQUIRE(br.start());
+        REQUIRE(br.status() == smce::Board::Status::running);
+        REQUIRE(br.suspend());
+        REQUIRE(br.status() == smce::Board::Status::suspended);
+        REQUIRE_FALSE(br.reset());
+    }
+
+    SECTION("Reset") {
+        REQUIRE(br.start());
+        REQUIRE(br.status() == smce::Board::Status::running);
+        REQUIRE(br.stop());
+        REQUIRE(br.status() == smce::Board::Status::stopped);
+        REQUIRE(br.reset());
+        REQUIRE(br.status() == smce::Board::Status::clean);
+        REQUIRE(br.get_sketch() == nullptr);
+
+    }
+
+}
