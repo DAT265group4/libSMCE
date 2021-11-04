@@ -102,3 +102,20 @@ TEST_CASE("Juniper sources", "[Board]") {
 }
 
 #endif
+
+
+TEST_CASE("Attach and Detach Sketch", "[Board]")
+{
+    smce::Toolchain tc{SMCE_PATH};
+    REQUIRE(!tc.check_suitable_environment());
+    smce::Sketch sk{SKETCHES_PATH "noop", {.fqbn = "arduino:avr:nano"}};
+    tc.compile(sk);
+    smce::Board br{};
+    REQUIRE(br.configure({}));
+    REQUIRE(br.attach_sketch(sk));
+    REQUIRE(br.get_sketch() == &sk);
+
+    REQUIRE(br.reset());
+    REQUIRE(br.status() == smce::Board::Status::clean);
+    REQUIRE(br.get_sketch() == nullptr);
+}
