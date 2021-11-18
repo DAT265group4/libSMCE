@@ -53,6 +53,10 @@ ctest
 ```shell
 cpack
 ```
+- For running the Wix and NUget packaging run the command bellow on terminal 
+```shell
+  cmake --build . --target PACKAGE
+```
 
 ### Future development
 - Serve the Doxygen-generated docs
