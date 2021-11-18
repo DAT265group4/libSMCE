@@ -53,7 +53,7 @@ ctest
 ```shell
 cpack
 ```
-- For running the Wix and NUget packaging run the command bellow on terminal 
+- For running the Wix and NuGet packaging run the command:
 ```shell
   cmake --build . --target PACKAGE
 ```
