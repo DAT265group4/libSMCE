@@ -30,8 +30,6 @@ using microsec_clock = boost::date_time::microsec_clock<boost::posix_time::ptime
 
 namespace smce {
 
-[[nodiscard]] bool BoardView::stop_requested() noexcept { return m_bdat && m_bdat->stop_requested.load(); }
-
 [[nodiscard]] std::string_view BoardView::storage_get_root(Link link, std::uint16_t accessor) noexcept {
     if (!m_bdat)
         return {};
@@ -136,7 +134,7 @@ VirtualPin VirtualPins::operator[](std::size_t pin_id) noexcept {
         case Direction::tx:
             return std::tie(chan.tx, chan.tx_mut);
         }
-        unreachable(); // GCOV_EXCL_LINE
+        unreachable();
     }();
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
@@ -156,7 +154,7 @@ std::size_t VirtualUartBuffer::read(std::span<char> buf) noexcept {
         case Direction::tx:
             return std::tie(chan.tx, chan.tx_mut, chan.max_buffered_tx);
         }
-        unreachable(); // GCOV_EXCL_LINE
+        unreachable();
     }();
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
@@ -178,7 +176,7 @@ std::size_t VirtualUartBuffer::write(std::span<const char> buf) noexcept {
         case Direction::tx:
             return std::tie(chan.tx, chan.tx_mut, chan.max_buffered_tx);
         }
-        unreachable(); // GCOV_EXCL_LINE
+        unreachable();
     }();
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
@@ -200,7 +198,7 @@ std::size_t VirtualUartBuffer::write(std::span<const char> buf) noexcept {
         case Direction::tx:
             return std::tie(chan.tx, chan.tx_mut);
         }
-        unreachable(); // GCOV_EXCL_LINE
+        unreachable();
     }();
     if (!mut.timed_lock(microsec_clock::universal_time() + boost::posix_time::seconds{1}))
         return 0;
@@ -400,11 +398,8 @@ bool FrameBuffer::write_rgb565(std::span<const std::byte> buf) {
     while (from != buf.end()) {
         const auto rg = *from++;
         const auto gb = *from++;
-        //RED
-        *to++ = (rg & std::byte{0xF8}); // Take 5 bits of Red component from the 5 positions to thE left of rg
-        //GREEN
-        *to++ = ((rg & std::byte{0xD7}) << 5) | ((gb & std::byte{0xE0}) >> 3); // the right 3 bits from rg and the first/left 3 from bg
-        //BLUE
+        *to++ = (rg & std::byte{0xF8});                                        // First 5 bits are red
+        *to++ = ((rg & std::byte{0xD7}) << 5) | ((gb & std::byte{0xE0}) >> 3); // last 3 bits from rg + first 3 from bg
         *to++ = (gb << 3);
     }
 
@@ -426,7 +421,7 @@ bool FrameBuffer::read_rgb565(std::span<std::byte> buf) {
         const auto r = *from++;
         const auto g = *from++;
         const auto b = *from++;
-        *to++ = (r & std::byte{0xF8}) | (g >> 5); 
+        *to++ = (r & std::byte{0xF8}) | (g >> 5);
         *to++ = ((g << 3) & std::byte{0xE0}) | (b >> 3);
     }
 
