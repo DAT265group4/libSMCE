@@ -27,7 +27,6 @@
 #include "SMCE/Toolchain.hpp"
 #include "defs.hpp"
 
-
 using namespace std::literals;
 
 TEST_CASE("BoardView GPIO", "[BoardView]") {

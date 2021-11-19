@@ -400,11 +400,12 @@ bool FrameBuffer::write_rgb565(std::span<const std::byte> buf) {
     while (from != buf.end()) {
         const auto rg = *from++;
         const auto gb = *from++;
-        //RED
+        // RED
         *to++ = (rg & std::byte{0xF8}); // Take 5 bits of Red component from the 5 positions to thE left of rg
-        //GREEN
-        *to++ = ((rg & std::byte{0xD7}) << 5) | ((gb & std::byte{0xE0}) >> 3); // the right 3 bits from rg and the first/left 3 from bg
-        //BLUE
+        // GREEN
+        *to++ = ((rg & std::byte{0xD7}) << 5) |
+                ((gb & std::byte{0xE0}) >> 3); // the right 3 bits from rg and the first/left 3 from bg
+        // BLUE
         *to++ = (gb << 3);
     }
 
@@ -426,7 +427,7 @@ bool FrameBuffer::read_rgb565(std::span<std::byte> buf) {
         const auto r = *from++;
         const auto g = *from++;
         const auto b = *from++;
-        *to++ = (r & std::byte{0xF8}) | (g >> 5); 
+        *to++ = (r & std::byte{0xF8}) | (g >> 5);
         *to++ = ((g << 3) & std::byte{0xE0}) | (b >> 3);
     }
 
