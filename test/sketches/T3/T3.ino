@@ -10,8 +10,7 @@ void setup() {
     pinMode(0, OUTPUT);
     digitalWrite(0, HIGH);
 
-    SD.remove("bar/baz")
-
+    SD.remove("bar/baz");
 }
 
 void loop() {

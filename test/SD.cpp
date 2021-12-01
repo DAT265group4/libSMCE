@@ -26,7 +26,7 @@ TEST_CASE("t1", "[SD]") {
 TEST_CASE("SD remove file", "[SD File]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
-    smce::Sketch sk{SKETCHES_PATH "T2", {
+    smce::Sketch sk{SKETCHES_PATH "T3", {
             .fqbn = "arduino:avr:nano",
             .legacy_preproc_libs = { {"SD"} }
     }};
@@ -44,10 +44,6 @@ TEST_CASE("SD remove file", "[SD File]") {
             {}
     };
     REQUIRE(br.configure(std::move(bc)));
-
-   /* if (std::filesystem::exists(STORAGE_PATH))
-        std::filesystem::remove_all(STORAGE_PATH);
-    std::filesystem::create_directory(STORAGE_PATH);*/
     REQUIRE(br.attach_sketch(sk));
     REQUIRE(br.start());
     auto d0 = br.view().pins[0].digital();
@@ -55,17 +51,7 @@ TEST_CASE("SD remove file", "[SD File]") {
     REQUIRE(br.stop());
     std::cerr << br.runtime_log().second << std::endl;
 
-   /* REQUIRE(std::filesystem::exists(STORAGE_PATH "foo"));
-    REQUIRE(std::filesystem::is_directory(STORAGE_PATH "foo"));
-    REQUIRE(std::filesystem::exists(STORAGE_PATH "bar"));
-    REQUIRE(std::filesystem::is_directory(STORAGE_PATH "bar"));*/
     REQUIRE_FALSE(std::filesystem::exists(STORAGE_PATH "bar/baz"));
-    //REQUIRE(std::filesystem::is_regular_file(STORAGE_PATH "bar/baz"));
-    //std::ifstream baz{STORAGE_PATH "bar/baz"};
-    /*REQUIRE(baz.is_open());
-    std::string s;
-    baz >> s;
-    REQUIRE(s == "quxx");*/
 
 }
 
