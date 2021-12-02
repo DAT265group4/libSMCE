@@ -70,7 +70,6 @@ TEST_CASE("SD add/remove file/dir", "[SD File]") {
         REQUIRE(br.stop());
         REQUIRE_FALSE(std::filesystem::exists(STORAGE_PATH "bar/file_to_del"));
         REQUIRE(std::filesystem::exists(STORAGE_PATH "bar"));
-
     }
 
     SECTION("Remove dir") {
@@ -85,6 +84,5 @@ TEST_CASE("SD add/remove file/dir", "[SD File]") {
         REQUIRE(br.stop());
         REQUIRE_FALSE(std::filesystem::exists(STORAGE_PATH "dir_to_del"));
         REQUIRE(std::filesystem::exists(STORAGE_PATH "bar/baz"));
-
     }
 }
