@@ -1,7 +1,9 @@
 #include <SD.h>
 
 void setup() {
-    SD.remove("bar/baz");
+    if(SD.exists("bar/file_to_del"))
+        SD.remove("bar/file_to_del");
+    SD.remove("bar");
 }
 
 void loop() {
