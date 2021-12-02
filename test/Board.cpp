@@ -103,9 +103,7 @@ TEST_CASE("Juniper sources", "[Board]") {
 
 #endif
 
-
-TEST_CASE("Attach and Detach Sketch", "[Board]")
-{
+TEST_CASE("Attach and Detach Sketch", "[Board]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(!tc.check_suitable_environment());
     smce::Sketch sk{SKETCHES_PATH "noop", {.fqbn = "arduino:avr:nano"}};

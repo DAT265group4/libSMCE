@@ -38,12 +38,12 @@ TEST_CASE("Toolchain valid", "[Toolchain]") {
 
 TEST_CASE("Toolchain invalid_directory", "[Toolchain]") {
     SECTION("no directory") {
-        const auto path =  "/no_dir";
+        const auto path = "/no_dir";
         smce::Toolchain tc{path};
         int result = tc.check_suitable_environment().value();
         REQUIRE(result == (int)smce::toolchain_error::resdir_absent);
     }
-    SECTION("file directory"){
+    SECTION("file directory") {
         const auto path = SMCE_TEST_DIR "/sketches/noop/noop.ino";
         smce::Toolchain tc{path};
         int result = tc.check_suitable_environment().value();
@@ -73,19 +73,9 @@ TEST_CASE("Toolchain invalid_sketch_config", "[Toolchain]") {
         REQUIRE(tc.compile(sk).value() == (int)smce::toolchain_error::sketch_invalid);
         REQUIRE_FALSE(sk.is_compiled());
     }
-
 }
 
 TEST_CASE("Toolchain check_cmake_path", "[Toolchain]") {
     smce::Toolchain tc{SMCE_PATH};
     REQUIRE(tc.cmake_path() == "cmake");
 }
-
-
-
-
-
-
-
-
-
