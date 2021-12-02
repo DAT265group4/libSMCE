@@ -6,7 +6,6 @@
 //#include "Ardrivo/SD.h"
 #include "defs.hpp"
 
-
 #include <chrono>
 #include <fstream>
 #include <iostream>
@@ -39,8 +38,7 @@ TEST_CASE("SD add and remove file", "[SD File]") {
     // clang-format on
     REQUIRE(br.configure(std::move(bc)));
 
-    SECTION("Add file")
-    {
+    SECTION("Add file") {
         // clang-format off
         smce::Sketch sk{SKETCHES_PATH "sd_fs", {
                 .fqbn = "arduino:avr:nano",
@@ -74,12 +72,8 @@ TEST_CASE("SD add and remove file", "[SD File]") {
         baz >> s;
         REQUIRE(s == "quxx");
     }
-    SECTION("Remove file")
-    {
-        smce::Sketch sk{SKETCHES_PATH "sd_fs_rm_f", {
-                .fqbn = "arduino:avr:nano",
-                .legacy_preproc_libs = {{"SD"}}
-        }};
+    SECTION("Remove file") {
+        smce::Sketch sk{SKETCHES_PATH "sd_fs_rm_f", {.fqbn = "arduino:avr:nano", .legacy_preproc_libs = {{"SD"}}}};
         const auto ec = tc.compile(sk);
         if (ec)
             std::cerr << ec.message() << '\n' << tc.build_log().second << std::endl;
