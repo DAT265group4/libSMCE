@@ -1,8 +1,9 @@
+
 #include <iostream>
 #include <catch2/catch_test_macros.hpp>
-#include "defs.hpp"
 #include "SMCE/Board.hpp"
 #include "SMCE/Toolchain.hpp"
+#include "defs.hpp"
 
 TEST_CASE("SD add/remove file/dir", "[SD File]") {
     smce::Toolchain tc{SMCE_PATH};
