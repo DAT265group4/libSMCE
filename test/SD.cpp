@@ -1,22 +1,8 @@
-//
-// Created by ASUS on 11/18/2021.
-//
 #include <iostream>
 #include <catch2/catch_test_macros.hpp>
-//#include "Ardrivo/SD.h"
 #include "defs.hpp"
-
-#include <chrono>
-#include <fstream>
-#include <iostream>
-#include <catch2/catch_test_macros.hpp>
 #include "SMCE/Board.hpp"
-#include "SMCE/BoardConf.hpp"
-#include "SMCE/BoardView.hpp"
 #include "SMCE/Toolchain.hpp"
-#include "defs.hpp"
-
-using namespace std::literals;
 
 TEST_CASE("SD add/remove file/dir", "[SD File]") {
     smce::Toolchain tc{SMCE_PATH};
