@@ -53,9 +53,16 @@ ctest
 ```shell
 cpack
 ```
-- For running the Wix and NuGet packaging run the command:
+
+#### Nuget Packaging
+- Make sure that the Nuget.exe (https://www.nuget.org/downloads) is in the path
+- For running the NuGet packaging run the command bellow in the root directory of the project:
 ```shell
-  cmake --build . --target PACKAGE
+  cmake -DSMCEGD_BUNDLE_DEPS=True -DSMCE_CPACK_PROFILE=NuGet -B .\build\
+```
+- Then run the command bellow in the "build" directory: 
+```shell
+ cmake --build . --target PACKAGE
 ```
 
 ### Future development
