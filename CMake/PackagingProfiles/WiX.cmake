@@ -15,7 +15,8 @@
 #  limitations under the License.
 #
 
+# Check ReadMe to know how to create Wix package
 set (CPACK_GENERATOR WIX)
 set (CPACK_WIX_UPGRADE_GUID b1ac8b57-a706-0465-4253-41f350305843)
-set (CPACK_WIX_ROOT_FEATURE_TITLE "LibSMCE")
-#include(CPack)
+set (CPACK_WIX_ROOT_FEATURE_TITLE "${PROJECT_NAME}")
+

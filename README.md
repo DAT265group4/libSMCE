@@ -65,6 +65,15 @@ cpack
  cmake --build . --target PACKAGE
 ```
 
+#### Wix Packaging
+- For running the Wix packaging run the command bellow in the root directory of the project:
+```shell
+  cmake -DSMCEGD_BUNDLE_DEPS=True -DSMCE_CPACK_PROFILE=WiX -B .\build\
+```
+- Then run the command bellow in the "build" directory:
+```shell
+ cmake --build . --target PACKAGE
+```
 ### Future development
 - Serve the Doxygen-generated docs
 - Making a proper [Hugo](https://gohugo.io)-generated wiki in Markdown
