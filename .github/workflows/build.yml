@@ -290,6 +290,9 @@ jobs:
         run: |
           mkdir ./build/packages
           cd build
+          cmake -DCPACK_PACKAGE_DIRECTORY="packages" .
+          cmake --build . --target package
+          cmake -DCPACK_PACKAGE_DIRECTORY="packages" .
           cmake --build . --target package
           rm -R packages/_CPack_Packages
           cd ..
@@ -357,8 +360,11 @@ jobs:
         run: |
           mkdir ./build/packages
           cd build
+          cmake -DCPACK_PACKAGE_DIRECTORY="packages" .
           cmake --build . --target package
-          rm -R packages
+          cmake -DCPACK_PACKAGE_DIRECTORY="packages" .
+          cmake --build . --target package
+          rm -R packages/_CPack_Packages
           cd ..
       - name: Upload artifacts
         if: matrix.boost.release
