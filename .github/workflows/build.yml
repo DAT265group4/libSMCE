@@ -277,6 +277,7 @@ jobs:
             -DSMCE_BOOST_LINKING=STATIC `
             -DSMCE_OPENSSL_LINKING=STATIC `
             -DCPACK_PACKAGE_DIRECTORY=packages `
+            -DSMCE_CPACK_PROFILE=WiX `
             -S ./ -B ./build
       - name: CMake build
         run: cmake --build ./build
@@ -297,73 +298,6 @@ jobs:
         uses: 'actions/upload-artifact@v2'
         with:
           name: libSMCE-windows-${{ matrix.compiler.c }}
-          path: build/packages/*
-  build-wix:
-    name: libSMCE - Windows-wix ${{ matrix.build_type }} (${{ matrix.compiler.name }} & Boost ${{ matrix.boost.version }})
-    runs-on: windows-latest
-    strategy:
-      fail-fast: false
-      matrix:
-        build_type: [Debug, Release]
-        compiler:
-          - name: MSVC
-            c: cl
-            cxx: cl
-        #         - name: Clang/LLVM
-        #           c: clang-cl
-        #           cxx: clang++-cl
-        boost:
-          - version: 1.74.0
-            slug: 1_74_0
-            release: false
-          - version: 1.75.0
-            slug: 1_75_0
-            release: false
-          - version: 1.76.0
-            slug: 1_76_0
-            release: true
-    #   env:
-    #     CC: ${{ matrix.compiler.c }}
-    #     CXX: ${{ matrix.compiler.cxx }}
-    steps:
-      - uses: actions/checkout@v2
-      - run: mkdir C:\local
-      - name: Cache Boost
-        id: cache-boost
-        uses: actions/cache@v2
-        with:
-          path: C:\local\boost_${{ matrix.boost.slug }}
-          key: ${{ runner.os }}-boost-${{ matrix.boost.version }}-64bit
-      - if: steps.cache-boost.outputs.cache-hit != 'true'
-        shell: powershell
-        run: .\ci\install-boost.ps1 '14.2' '${{ matrix.boost.version }}' '${{ matrix.boost.slug }}'
-      - name: Check deps
-        shell: bash
-        run: |
-          choco install ninja openssl > silence
-          ninja --version
-      - uses: ilammy/msvc-dev-cmd@v1
-      - name: CMake configure
-        run: |
-          mkdir build
-          cmake -G Ninja `
-            -DSMCE_CPACK_PROFILE=WiX `
-            -DCMAKE_BUILD_TYPE=${{ matrix.build_type }} `
-            -S ./ -B ./build
-      - name: CMake build
-        run: cmake --build ./build
-      - name: Package
-        run: |
-          mkdir ./build/packages
-          cd build
-          cmake --build . --target package
-          rm -R packages/_CPack_Packages
-          cd ..
-      - name: Upload artifacts
-        if: matrix.boost.release
-        uses: 'actions/upload-artifact@v2'
-        with:
-          name: libSMCE-windows-wix-${{ matrix.compiler.c }}
           path: build/packages/*
   build-nuget:
     name: libSMCE - Nuget ${{ matrix.build_type }} (${{ matrix.compiler.name }} & Boost ${{ matrix.boost.version }})
@@ -424,7 +358,7 @@ jobs:
           mkdir ./build/packages
           cd build
           cmake --build . --target package
-          rm -R packages/_CPack_Packages
+          rm -R packages
           cd ..
       - name: Upload artifacts
         if: matrix.boost.release

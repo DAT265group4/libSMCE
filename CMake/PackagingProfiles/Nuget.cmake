@@ -18,4 +18,4 @@
 set (CPACK_GENERATOR NuGet)
 set (CPACK_NUGET_PACKAGE_NAME  "${PROJECT_NAME}")
 set (CPACK_NUGET_PACKAGE_AUTHORS "ItJustWorksTM")
-set(CPACK_NUGET_PACKAGE_DESCRIPTION "This cross-platform C++ library provides its consumers the ability\nto compile and execute Arduino sketches on a hosted environment, with bindings\nto its virtual I/O ports to allow the host application to interact with its\nchild sketches.")
+set(CPACK_NUGET_PACKAGE_DESCRIPTION "${CPACK_PACKAGE_DESCRIPTION}")

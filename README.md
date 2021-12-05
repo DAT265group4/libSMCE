@@ -56,7 +56,7 @@ cpack
 
 #### Nuget Packaging
 - Make sure that the Nuget.exe (https://www.nuget.org/downloads) is in the System PATH
-- For running the NuGet packaging, run the bellow command in the root directory of the project:
+- For running the NuGet packaging, run the below command in the root directory of the project:
 ```shell
   cmake -DSMCE_CPACK_PROFILE=NuGet . -B build
 ```
@@ -66,7 +66,7 @@ cpack
 ```
 
 #### Wix Packaging
-- For running the Wix packaging, run the command bellow in the root directory of the project:
+- For running the Wix packaging, run the command below in the root directory of the project:
 ```shell
   cmake -DSMCE_CPACK_PROFILE=WiX . -B build
 ```
