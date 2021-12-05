@@ -303,8 +303,6 @@ jobs:
             -DCPACK_PACKAGE_DIRECTORY=packages `
             -DSMCE_CPACK_PROFILE=WiX `
             -S ./ -B ./build
-      - name: CMake build
-        run: cmake --build ./build
       - name: Package
         run: |
 #          mkdir ./build/packages
@@ -327,8 +325,6 @@ jobs:
             -DCPACK_PACKAGE_DIRECTORY=packages `
             -DSMCE_CPACK_PROFILE=Nuget `
             -S ./ -B ./build
-      - name: CMake build
-        run: cmake --build ./build
       - name: Package
         run: |
 #          mkdir ./build/packages
