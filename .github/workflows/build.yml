@@ -292,7 +292,7 @@ jobs:
           cmake --build . --target package
           rm -R packages/_CPack_Packages
           cd ..
-      - name: CMake configure
+      - name: Wix CMake configure
         run: |
           cmake -G Ninja `
             -DBOOST_ROOT=C:\local\boost_${{ matrix.boost.slug }} `
@@ -303,7 +303,9 @@ jobs:
             -DCPACK_PACKAGE_DIRECTORY=packages `
             -DSMCE_CPACK_PROFILE=WiX `
             -S ./ -B ./build
-      - name: Package
+      - name: Wix CMake build
+        run: cmake --build ./build
+      - name: Wix Package
         run: |
 #          mkdir ./build/packages
           cd build
@@ -313,7 +315,7 @@ jobs:
           cmake --build . --target package
           rm -R packages/_CPack_Packages
           cd ..
-      - name: CMake configure
+      - name: Nuget CMake configure
         run: |
  #         mkdir build
           cmake -G Ninja `
@@ -325,7 +327,9 @@ jobs:
             -DCPACK_PACKAGE_DIRECTORY=packages `
             -DSMCE_CPACK_PROFILE=Nuget `
             -S ./ -B ./build
-      - name: Package
+      - name: Nuget CMake build
+        run: cmake --build ./build
+      - name: Nuget Package
         run: |
 #          mkdir ./build/packages
           cd build
