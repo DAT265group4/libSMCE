@@ -55,24 +55,24 @@ cpack
 ```
 
 #### Nuget Packaging
-- Make sure that the Nuget.exe (https://www.nuget.org/downloads) is in the path
-- For running the NuGet packaging run the command bellow in the root directory of the project:
+- Make sure that the Nuget.exe (https://www.nuget.org/downloads) is in the System PATH
+- For running the NuGet packaging, run the bellow command in the root directory of the project:
 ```shell
-  cmake -DSMCEGD_BUNDLE_DEPS=True -DSMCE_CPACK_PROFILE=NuGet -B .\build\
+  cmake -DSMCE_CPACK_PROFILE=NuGet . -B build
 ```
-- Then run the command bellow in the "build" directory: 
+- Then run the bellow command in the "build" directory: 
 ```shell
- cmake --build . --target PACKAGE
+ cmake --build . --target package
 ```
 
 #### Wix Packaging
-- For running the Wix packaging run the command bellow in the root directory of the project:
+- For running the Wix packaging, run the command bellow in the root directory of the project:
 ```shell
-  cmake -DSMCEGD_BUNDLE_DEPS=True -DSMCE_CPACK_PROFILE=WiX -B .\build\
+  cmake -DSMCE_CPACK_PROFILE=WiX . -B build
 ```
-- Then run the command bellow in the "build" directory:
+- Then run the bellow command in the "build" directory:
 ```shell
- cmake --build . --target PACKAGE
+ cmake --build . --target package
 ```
 ### Future development
 - Serve the Doxygen-generated docs

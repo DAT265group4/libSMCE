@@ -15,9 +15,7 @@
 #  limitations under the License.
 #
 
-# Check ReadMe to know how to create Nuget package
 set (CPACK_GENERATOR NuGet)
 set (CPACK_NUGET_PACKAGE_NAME  "${PROJECT_NAME}")
-set (CPACK_NUGET_PACKAGE_VERSION  "${PROJECT_VERSION}")
 set (CPACK_NUGET_PACKAGE_AUTHORS "ItJustWorksTM")
-set(CPACK_NUGET_PACKAGE_DESCRIPTION "This package is the spiritual successor application to the backend of SMartCarEmul application.")
+set(CPACK_NUGET_PACKAGE_DESCRIPTION "This cross-platform C++ library provides its consumers the ability\nto compile and execute Arduino sketches on a hosted environment, with bindings\nto its virtual I/O ports to allow the host application to interact with its\nchild sketches.")
