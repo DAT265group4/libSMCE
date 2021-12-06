@@ -6,6 +6,13 @@ on:
         description: 'Check with SonarCloud'
 jobs:
   build:
+    name: Sonarqube
+    runs-on: ubuntu-latest
+    env:
+      SONAR_SCANNER_VERSION: 4.6.1.2450
+      # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
+      SONAR_SERVER_URL: "https://sonarcloud.io"
+  build:
     name: Build and check with SonarCloud
     runs-on: ubuntu-latest
     strategy:
@@ -21,7 +28,8 @@ jobs:
     env:
       CC: ${{ matrix.compiler.c }}
       CXX: ${{ matrix.compiler.cxx }}
-      SONAR_SCANNER_VERSION: 4.4.0.2170
+       SONAR_SCANNER_VERSION: 4.6.1.2450
+      # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
