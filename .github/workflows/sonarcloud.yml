@@ -1,15 +1,13 @@
-name: Sonarqube
+name: SonarCloud
 on:
-  push:
-    branches:
-      - master
-  pull_request:
-    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Check with SonarCloud'
 jobs:
   build:
-    name: Sonarqube
+    name: Build and check with SonarCloud
     runs-on: ubuntu-latest
-    if: always()
     strategy:
       fail-fast: false
       matrix:
@@ -23,7 +21,7 @@ jobs:
     env:
       CC: ${{ matrix.compiler.c }}
       CXX: ${{ matrix.compiler.cxx }}
-      SONAR_SCANNER_VERSION: 4.6.1.2450
+      SONAR_SCANNER_VERSION: 4.4.0.2170
       SONAR_SERVER_URL: "https://sonarcloud.io"
       BUILD_WRAPPER_OUT_DIR: build_wrapper_output_directory # Directory where build-wrapper output will be placed
     steps:
@@ -81,4 +79,4 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-           sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}"
+          sonar-scanner --define sonar.host.url="${{ env.SONAR_SERVER_URL }}" --define sonar.cfamily.build-wrapper-output="${{ env.BUILD_WRAPPER_OUT_DIR }}" --define sonar.projectKey="DAT265group4_libSMCE" --define sonar.organization="dat265group4" --define 'sonar.exclusions=build/_deps/**'
