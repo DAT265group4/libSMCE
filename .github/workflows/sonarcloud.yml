@@ -8,13 +8,6 @@ jobs:
   build:
     name: Sonarqube
     runs-on: ubuntu-latest
-    env:
-      SONAR_SCANNER_VERSION: 4.6.1.2450
-      # https://sonarcloud.io/documentation/analysis/scan/sonarscanner/
-      SONAR_SERVER_URL: "https://sonarcloud.io"
-  build:
-    name: Build and check with SonarCloud
-    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
