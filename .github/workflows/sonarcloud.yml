@@ -44,7 +44,7 @@ jobs:
           rm arduino-cli.tgz
           arduino-cli version
           arduino-cli core install arduino:avr
-          ./ci/build-static-boost.sh 1.77.0
+          ./ci/build-static-boost.sh 1.76.0
           cmake -G Ninja \
             -DCMAKE_EXPORT_COMPILE_COMMANDS=ON \
             -DCMAKE_BUILD_TYPE=Debug \
