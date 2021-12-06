@@ -1,9 +1,10 @@
 name: Sonarqube
 on:
-  workflow_dispatch:
-    inputs:
-      tags:
-        description: 'Check with SonarCloud'
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
 jobs:
   build:
     name: Sonarqube
